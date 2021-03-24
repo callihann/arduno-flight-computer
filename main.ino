@@ -1,20 +1,20 @@
 #include <SPI.h>
 #include <SD.h>
 File writeFile;
-int letter;
 
-void GenTxt() {
-  int generated=0;
-while (generated<6)
-{
-   byte randomValue = random(0, 26);
-   char letter = randomValue + 'a';
-   if(randomValue > 26)
-      letter = (randomValue - 26) ;
-      Serial.print(letter);
-      generated ++;
-      
-}}
+
+String genTxt(int randomWordLength) { 
+
+   char generated[randomWordLength];  // creates a char array  (aka string) of length passed in
+ 
+   for(int i = 0; i < randomWordLength; i++) 
+   { 
+    int randomValue = random(0, 26);   // random int between 0 and 25
+    generated[i] = randomValue + 'a';    // adding a is like adding 97 to the number from 0 to 25 to shift to match the ASCII table
+   }
+
+   return generated;
+}
 
 const int chipSelect = 10;
 
@@ -41,11 +41,6 @@ void setup() {
   }
   Serial.println("Creating example.txt...");
   writeFile = SD.open("example.txt", FILE_WRITE);
-  if (SD.exists("example.txt")) {
-    Serial.print("example.txt exists.");
-  } else {
-    Serial.print("example.txt doesn't exist.");
-  }
 }
 void loop() {
   // put your main code here, to run repeatedly:
