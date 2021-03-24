@@ -1,7 +1,7 @@
 #include <SPI.h>
 #include <SD.h>
 File writeFile;
-global logging;
+int logging;
 
 String genTxt(int randomWordLength) { 
 
